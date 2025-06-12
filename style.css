@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:root {
+    /* Light Mode - Newspaper Style */
+    --bg-color: #F9F5EF;
+    /* Background */
+    --text-primary: #1A1A1A;
+    /* Headings, main text */
+    --text-secondary: #555555;
+    /* Dates, meta info */
+    --text-color: black;
+}
+
+body.dark-mode {
+    /* Dark Mode - Modern Editorial */
+    --bg-color: #121212;
+    --text-primary: #F4F4F4;
+    --text-secondary: #AAAAAA;
+    --text-color: white;
+}
+
+
+
+header {
+    text-align: center;
+    color: var(--text-primary);
+    margin: 10px;
+}
+
+header h1 {
+    border-bottom: 4px solid black;
+}
+
+.date {
+    /* text-align: left; */
+    margin: 10px;
+    border-bottom: 4px solid black;
+    color: var(--text-secondary);
+}
+
+.date #dakmode {
+    text-align: right;
+}
+
+/* main */
+
+/* hero */
+
+
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(5, 250px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 19px;
+    margin: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+.parent hr {
+    border: none;
+    height: 3px;
+    background-color: black;
+}
+
+
+.div1 {
+    grid-column: span 3 / span 3;
+    grid-row: span 5 / span 5;
+}
+
+.parent img {
+    border-radius: 5%;
+}
+
+.div2 {
+    grid-row: span 2 / span 2;
+    grid-column-start: 4;
+    /* margin: 10px;
+    padding: 10px; */
+}
+
+.div3 {
+    grid-row: span 2 / span 2;
+    grid-column-start: 5;
+}
+
+.div4 {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-column-start: 4;
+    margin-top: 120px;
+}
+
+.parent .img {
+    margin: 10px;
+}
+
+.parent .text {
+    margin: 10px
+}
+
+.parent .text p {
+    margin: 10px overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* Limit to 4 lines */
+    -webkit-box-orient: vertical;
+}
+
+
+
+@media (max-width: 884px) {
+    .parent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 112px;
+    }
+
+    .div1,
+    .div2,
+    .div3,
+    .div4 {
+        height: 250px;
+        width: 250px;
+    }
+
+    .div4 img {
+        width: 262px;
+    }
+
+    .parent img {
+        margin-top: 10px;
+    }
+
+    .div3,
+    .div2 {
+        margin-top: 55px;
+    }
+}
+
