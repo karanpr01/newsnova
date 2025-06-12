@@ -47,7 +47,7 @@ header h1 {
 .date {
     /* text-align: left; */
     margin: 10px;
-    border-bottom: 4px solid var(--text-color-);
+    border-bottom: 4px solid var(--text-color);
     color: var(--text-secondary);
 }
 
