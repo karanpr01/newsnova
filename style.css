@@ -1,163 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap');
+
+/* font-family: "Playfair Display", serif; hero title */
+/*  font-family: "Poppins", sans-serif; */
+/* font-family: "Inter", sans-serif; */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --bg-color: #F9F5EF;
+    --text-color: black;
+    --tag-color: white;
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: white;
+    --tag-color: black;
+}
+
 body {
-    height: 100%;
-    width: 100%;
-    font-family: 'Times New Roman', Times, serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100vh;
+    width: 100vw;
 }
 
-:root {
-    /* Light Mode - Newspaper Style */
-    --bg-color: #F9F5EF;
-    /* Background */
-    --text-primary: #1A1A1A;
-    /* Headings, main text */
-    --text-secondary: #555555;
-    /* Dates, meta info */
-    --text-color: black;
-}
-
-body.dark-mode {
-    /* Dark Mode - Modern Editorial */
-    --bg-color: #121212;
-    --text-primary: #F4F4F4;
-    --text-secondary: #AAAAAA;
-    --text-color: white;
-}
-
-
-
-header {
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     text-align: center;
-    color: var(--text-primary);
-    margin: 10px;
 }
 
-header h1 {
-    border-bottom: 4px solid var(--text-color);
+.theme {
+    justify-content: flex-end;
 }
 
-.date {
-    /* text-align: left; */
-    margin: 10px;
-    border-bottom: 4px solid var(--text-color-);
-    color: var(--text-secondary);
+.title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
 }
 
-.date #dakmode {
-    text-align: right;
+#date {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
 }
 
-/* main */
+/* Main page */
 
-/* hero */
+main {
+    margin-top: 36px;
+}
+
+.tags ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    align-items: center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+li {
+
+    padding: 10px 22px;
+    border-radius: 15px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.active {
+    background-color: var(--text-color);
+    color: var(--tag-color);
+}
 
 
 
-.parent {
-    display: grid;
-    grid-template-columns: repeat(5, 250px);
-    grid-template-rows: repeat(3, 150px);
-    gap: 19px;
-    margin: 10px;
+
+/** News Section */
+
+.hero-news {
+    margin: 27px;
+    display: flex;
     justify-content: center;
+
+}
+
+.hero {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 80%;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.img img {
+    border-radius: 20px;
+}
+
+.text .tag {
+    background-color: wheat;
+    width: fit-content;
+    padding: 2px 16px;
+    border-radius: 15px;
+    color: black;
+}
+
+.text h2 {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+}
+
+.text .desc {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+}
+
+.text .btn {
+    font-size: 13px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    background-color: black;
+    width: fit-content;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 26px;
+}
+
+.text .btn a{
+    text-decoration: none;
+    color: white;
+}
+
+@media (max-width:600px) {
+
+    .hero {
+        flex-direction: column;
+    }
+
+
+}
+
+
+/** Quotes & Jokes */
+
+.quotes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    margin: 100px;
+    width: 80%;
 }
 
-.parent hr {
-    border: none;
-    height: 3px;
-    background-color:var(--text-color);
+.quotes .text{
+    border: 2px solid;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
 }
 
-
-.div1 {
-    grid-column: span 3 / span 3;
-    grid-row: span 5 / span 5;
-  
+.quotes .text h2{
+    text-decoration: underline;
 }
 
-.parent img {
-    border-radius: 5%;
-}
-
-.div2 {
-    grid-row: span 2 / span 2;
-    grid-column-start: 4;
-    /* margin: 10px;
-    padding: 10px; */
-}
-
-.div3 {
-    grid-row: span 2 / span 2;
-    grid-column-start: 5;
-}
-
-.div4 {
-    grid-column: span 2 / span 2;
-    grid-row: span 2 / span 2;
-    grid-column-start: 4;
-    margin-top: 60px;
-}
-
-.parent .img {
-    margin: 10px;
-}
-
-.parent .text h2,p {
-    margin: 10px
-}
-
-.parent .text p {
-    margin: 10px overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    /* Limit to 4 lines */
-    -webkit-box-orient: vertical;
-}
-
-
-
-@media (max-width: 884px) {
-    .parent {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 112px;
+@media (max-width:600px){
+    .quotes{
+       margin: 100px 25px 100px 35px;
     }
-
-    /* .div1,
-    .div2,
-    .div3,
-    .div4 {
-        height: 250px;
-        width: 250px;
-    } */
-
-    .div4 img {
-        width: 262px;
-    }
-
-    .parent img {
-        margin-top: 10px;
-    }
-
-    /* .div3,
-    .div2 {
-        margin-top: 55px;
-    }*/
-
-    .div4{
-        margin-top: 0;
-    } 
 }
 
+/** Cards */
+
+.news {
+    /* margin: 40px 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.cards {
+    /* width: 25%; */
+    width: min-content;
+}
+
+@media(max-width:600px){
+    .news{
+        flex-direction: column;
+        
+    }
+}
