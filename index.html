@@ -5,170 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NewsNova</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
 <body>
     <header>
         <nav>
-            <div class="title">
-                <h1>NewsNova</h1>
-                <p id="date">June 12,2025</p>
+            <div class="logo">
+                <div class="logoicon">N</div>
+                <span class="text">NewsNova</span>
             </div>
-            <div class="theme">
-                <i id="themeicon" class="fa-solid fa-moon fa-2x"></i>
+            <div class="search-bar">
+                <input type="text" placeholder="Search🔍">
             </div>
+            <div class="theme-toggle">
+                <i class="ri-moon-fill moon"></i>
+                <i class="ri-sun-fill hide sun"></i>
+            </div>
+            <i class="ri-menu-3-line menu"></i>
+
         </nav>
+        <div class="nav-links">
+            <div class="head">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search🔍">
+                </div>
+
+                <div class="theme-toggle">
+                    <i class="ri-moon-fill moon"></i>
+                    <i class="ri-sun-fill hide sun"></i>
+                </div>
+            </div>
+            <div class="links">
+                <h4>Home</h4>
+                <h4>Technology</h4>
+                <h4>Sports</h4>
+                <h4>Culture</h4>
+                <h4>Business</h4>
+            </div>
+
+            <i class="ri-close-line cancel"></i>
+        </div>
     </header>
-    <main>
-        <div class="tags">
-            <ul>
-                <li class="active">All</li>
-                <li>Latest</li>
-                <li>Business</li>
-                <li>Politics</li>
-                <li>Technology</li>
-            </ul>
-        </div>
-        <div class="hero-news" id="hero-news">
-            <div class="hero">
-                <div class="img">
-                    <img src="https://images.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg"
-                        alt="news-img" width="280px">
-                </div>
-                <div class="text">
-                    <div class="tag"> Science</div>
-                    <div class="title">
-                        <h2>Exciting Advances in Space Exploration</h2>
-                    </div>
-                    <div class="desc">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam sapiente odio, rem
-                            perspiciatis repellendus fugiat reiciendis quo minima velit, voluptatibus libero nihil
-                            facere ab cumque cum cupiditate praesentium atque assumenda.</p>
-                    </div>
-                    <div class="btn"><a href="#" target="_blank">Read Full Article</a></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="quotes">
-            <div class="text">
-                <h2>Random Quotes</h2>
-                <p>"Success is not final,failure is not fatal: It is the courage to continue that count."</p>
-            </div>
-        </div>
 
 
-        <div class="news">
-            <div class="cards">
-                <div class="img">
-                    <img src="https://images.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg"
-                        alt="news-img" width="280px">
-                </div>
-                <div class="text">
-                    <div class="tag"> Science</div>
-                    <div class="title">
-                        <h2>Exciting Advances in Space Exploration</h2>
-                    </div>
-                    <div class="desc">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam sapiente odio, rem
-                            perspiciatis repellendus fugiat reiciendis quo minima velit, voluptatibus libero nihil
-                            facere ab cumque cum cupiditate praesentium atque assumenda.</p>
-                    </div>
-                    <div class="btn">Read Full Article</div>
-                </div>
-            </div>
-
-            <div class="cards">
-                <div class="img">
-                    <img src="https://images.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg"
-                        alt="news-img" width="280px">
-                </div>
-                <div class="text">
-                    <div class="tag"> Science</div>
-                    <div class="title">
-                        <h2>Exciting Advances in Space Exploration</h2>
-                    </div>
-                    <div class="desc">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam sapiente odio, rem
-                            perspiciatis repellendus fugiat reiciendis quo minima velit, voluptatibus libero nihil
-                            facere ab cumque cum cupiditate praesentium atque assumenda.</p>
-                    </div>
-                    <div class="btn">Read Full Article</div>
-                </div>
-            </div>
 
 
-            <div class="cards">
-                <div class="img">
-                    <img src="https://images.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg"
-                        alt="news-img" width="280px">
-                </div>
-                <div class="text">
-                    <div class="tag"> Science</div>
-                    <div class="title">
-                        <h2>Exciting Advances in Space Exploration</h2>
-                    </div>
-                    <div class="desc">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam sapiente odio, rem
-                            perspiciatis repellendus fugiat reiciendis quo minima velit, voluptatibus libero nihil
-                            facere ab cumque cum cupiditate praesentium atque assumenda.</p>
-                    </div>
-                    <div class="btn">Read Full Article</div>
-                </div>
-            </div>
 
-            <div class="cards">
-                <div class="img">
-                    <img src="https://images.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg"
-                        alt="news-img" width="280px">
-                </div>
-                <div class="text">
-                    <div class="tag"> Science</div>
-                    <div class="title">
-                        <h2>Exciting Advances in Space Exploration</h2>
-                    </div>
-                    <div class="desc">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam sapiente odio, rem
-                            perspiciatis repellendus fugiat reiciendis quo minima velit, voluptatibus libero nihil
-                            facere ab cumque cum cupiditate praesentium atque assumenda.</p>
-                    </div>
-                    <div class="btn">Read Full Article</div>
-                </div>
-            </div>
-
-
-            <div class="cards">
-                <div class="img">
-                    <img src="https://images.pexels.com/photos/73871/rocket-launch-rocket-take-off-nasa-73871.jpeg"
-                        alt="news-img" width="280px">
-                </div>
-                <div class="text">
-                    <div class="tag"> Science</div>
-                    <div class="title">
-                        <h2>Exciting Advances in Space Exploration</h2>
-                    </div>
-                    <div class="desc">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam sapiente odio, rem
-                            perspiciatis repellendus fugiat reiciendis quo minima velit, voluptatibus libero nihil
-                            facere ab cumque cum cupiditate praesentium atque assumenda.</p>
-                    </div>
-                    <div class="btn">Read Full Article</div>
-                </div>
-            </div>
-
-
-            <div class="quotes jokes">
-                <div class="text">
-                    <h2>Random Jokes</h2>
-                    <p>"Why don't Javascript developers get drunk? <br>
-                        Because they can't stop at just one shot"</p>
-                </div>
-            </div>
-        </div>
-
-    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+        integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="script.js"></script>
 </body>
 
