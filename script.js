@@ -78,3 +78,50 @@ window.addEventListener("DOMContentLoaded", () => {
     disableDarkMode();
   }
 });
+
+
+
+
+
+
+
+// Random quotes API
+async function getQuotes() {
+  try {
+    const res = await fetch('https://dummyjson.com/quotes');
+    
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    // Get a random quote from the list
+    const randomIndex = Math.floor(Math.random() * data.quotes.length);
+    const quote = data.quotes[randomIndex];
+
+    const quoteContainer = document.getElementById("quote");
+
+    quoteContainer.innerHTML = `
+      <h2><i>"${quote.quote}"</i><br>
+      — <b>${quote.author}</b></h2>
+    `;
+
+  } catch (error) {
+    console.error("❌ Error fetching quotes:", error);
+    document.getElementById("quote").innerHTML = `
+      <p style="color: red;">❌ Failed to load quote. Please try again later.</p>
+    `;
+  }
+}
+
+// Initial quote
+getQuotes();
+
+// Update quote every 10 seconds (10000 ms)
+setInterval(getQuotes, 10000);
+
+
+
+
+
