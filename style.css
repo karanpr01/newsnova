@@ -38,6 +38,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
+  overflow-y: auto;
 }
 
 /* Navbar */
@@ -53,17 +54,17 @@ nav {
 /* Logo */
 .logo {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 1.5rem;
-  color: var(--text-color);
+  color: #111;
   gap: 0.5rem;
 }
 
 .logo-icon {
   background-color: var(--text-color);
-  color: var(--bg-color);
+  color: var(--card-color);
   width: 32px;
   height: 32px;
   border-radius: 6px;
@@ -71,6 +72,11 @@ nav {
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
+}
+
+.logo-text {
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 /* Input Fields */
@@ -89,7 +95,7 @@ nav .search-bar {
   display: none;
 }
 
-nav .theme-toggle  {
+nav .theme-toggle {
   display: none;
 }
 
@@ -120,7 +126,7 @@ nav i {
   top: 0;
   right: -100%;
   backdrop-filter: blur(5px);
-  padding: 150px 60px;
+  padding: 80px 60px;
   transition: right 0.3s ease;
 }
 
@@ -139,18 +145,26 @@ nav i {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  /* gap: 15px; */
   margin: 20px;
 }
 
 .links h4 {
-  color: var(--text-color);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: background 0.2s ease;
   cursor: pointer;
-  transition: color 0.3s;
 }
 
 .links h4:hover {
-  color: var(--accent-color);
+  background-color: var(--accent-color);
+}
+
+h4.active {
+  background-color: #2ca8da;
+  font-weight: 600;
+  color: #1d4ed8;
 }
 
 /* Close Icon */
@@ -173,15 +187,62 @@ nav i {
   display: none;
 }
 
-/* Responsive: Tablets */
-@media screen and (min-width: 767px) and (max-width: 1023px) {
+.sidebar {
+  display: none;
+}
+
+
+/* Main Section */
+  .main {
+    /* height: 100%; */
+    /* width: 65%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .featured-image {
+    width: 300px;
+  }
+
+  .main button{
+    padding: 20px;
+    background-color: var(--accent-color);
+  }
+
+  .main button:hover{
+    background-color: var(--accent-hover);
+  }
+
+  .main button a{
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .quote {
+    border: 2px solid;
+    /* height: 300px;
+    width: 220px; */
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    margin: 30px;
+  }
+
+
+
+/* Responsive:Desktop */
+@media screen and (min-width: 767px) {
   body {
     /* background-color: red; // for testing */
   }
-}
 
-/* Responsive: Desktop */
-@media screen and (min-width: 1024px) {
+  /* NavBar */
   .nav-links {
     display: none;
   }
@@ -212,4 +273,85 @@ nav i {
     padding: 10px;
     color: var(--text-color);
   }
+
+
+  /* Sidebar */
+
+  main {
+    display: flex;
+    /* min-height: 100vh;
+    align-items: flex-start; */
+  }
+
+  .sidebar {
+    display: block;
+    width: 220px;
+    background-color: var(--bg-color);
+    padding: 1.5rem;
+    border-right: 2px solid var(--border-color);
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .sidebar h4 {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: background 0.2s ease;
+    cursor: pointer;
+  }
+
+  .sidebar h4:hover {
+    background-color: var(--accent-color);
+  }
+
+  h4.active {
+    background-color: #2ca8da;
+    font-weight: 600;
+    color: #1d4ed8;
+  }
+
+  /* Main Section */
+  .main {
+    height: 100%;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .featured-image {
+    width: 600px;
+    height: 350px;
+  }
+
+  .main button{
+    padding: 20px;
+    background-color: var(--accent-color);
+  }
+
+  .main button:hover{
+    background-color: var(--accent-hover);
+  }
+
+  .main button a{
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .quote {
+    border: 2px solid;
+    height: 300px;
+    width: 220px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+  }
+
+
 }
