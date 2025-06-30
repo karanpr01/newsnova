@@ -125,7 +125,7 @@ setInterval(getQuotes, 60000);
 
 // News ApI
 
-const apikey = 'f725116e3477ec4b62f5b64412a9410f';
+
 const url = `https://gnews.io/api/v4/top-headlines?lang=en&country=in&max=10&apikey=${apikey}`;
 
 let allArticles = [];       // Holds full list of articles
