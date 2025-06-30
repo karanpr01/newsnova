@@ -193,46 +193,47 @@ h4.active {
 
 
 /* Hero Section */
-  #hero {
-    /* height: 100%; */
-    /* width: 65%; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-  }
 
-  .featured-image {
-    width: 300px;
-  }
+#hero .news-card {
+  height: 100%;
+  width: 100%;
+  padding: 15px 20px;
+  border-bottom: 2px solid;
+}
 
-  #hero button{
-    padding: 20px;
-    background-color: var(--accent-color);
-  }
+.featured-image {
+  width: 300px;
+  margin: 20px;
+}
 
-  #hero button:hover{
-    background-color: var(--accent-hover);
-  }
+#hero button {
+  padding: 20px;
+  background-color: var(--accent-color);
+  margin: 20px 0;
+}
 
-  #hero button a{
-    text-decoration: none;
-    color: var(--text-color);
-  }
+#hero button:hover {
+  background-color: var(--accent-hover);
+}
 
-  #quote {
-    border: 2px solid;
-    /* height: 300px;
+#hero button a {
+  text-decoration: none;
+  color: var(--text-color);
+
+}
+
+#quote {
+  border: 2px solid;
+  /* height: 300px;
     width: 220px; */
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
-    margin: 30px;
-  }
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  margin: 30px;
+}
 
 
 
@@ -289,6 +290,7 @@ h4.active {
     background-color: var(--bg-color);
     padding: 1.5rem;
     border-right: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
     height: 100vh;
     font-family: 'Inter', sans-serif;
   }
@@ -323,22 +325,22 @@ h4.active {
   }
 
   .featured-image {
-    /* width: 600px; */
+    width: 600px;
     height: 350px;
     object-fit: cover;
     object-position: center;
   }
 
-  #hero button{
+  #hero button {
     padding: 20px;
     background-color: var(--accent-color);
   }
 
-  #hero button:hover{
+  #hero button:hover {
     background-color: var(--accent-hover);
   }
 
-  #hero button a{
+  #hero button a {
     text-decoration: none;
     color: var(--text-color);
   }
@@ -348,12 +350,21 @@ h4.active {
     height: 300px;
     width: 220px;
     border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  
     text-align: center;
     padding: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    /* Show only 5 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  .article {
+    width: 100%;
+    height: 100vh;
+    background-color: orangered;
+  }
 
 }

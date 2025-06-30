@@ -119,70 +119,107 @@ async function getQuotes() {
 getQuotes();
 
 // Update quote every 10 seconds (10000 ms)
-setInterval(getQuotes, 10000);
+setInterval(getQuotes, 60000);
 
 
 
 // News ApI
 
-
+const apikey = 'f725116e3477ec4b62f5b64412a9410f';
 const url = `https://gnews.io/api/v4/top-headlines?lang=en&country=in&max=10&apikey=${apikey}`;
 
-async function getBreakingNews() {
-    try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-        const data = await res.json();
+let allArticles = [];       // Holds full list of articles
+let currentIndex = 0;       // Index to track shown articles
+const batchSize = 3;        // How many articles to show per click
 
-        if (!data.articles || data.articles.length === 0) {
-            console.log("No breaking news found.");
-            return;
-        }
+const articlePage = document.getElementById("hero");
+const loadMoreBtn = document.getElementById("loadMore");
+const statusMessage = document.getElementById("status-message");
 
-        const article = data.articles[0];
-        console.log(article);
-        
-
-        const articlePage = document.getElementById("hero");
-
-        articlePage.innerHTML = `
-          <h1>${article.title}</h1>
-          <p>${formatPublishedDate(article.publishedAt)} | ${article.source.name}</p>
-          <img src="${article.image}" class="featured-image" />
-          <p style="margin-top:1rem;">${article.description}</p>
-           <button>
-                    <a href="${article.url}" target ="_blank">Read More →</a>
-                </button>
-        `;
-
-    }
-    catch (err) {
-        console.error('❌ Failed to load news:', err);
-        document.getElementById('article').innerHTML = `<p style="color:red;">Error loading news: ${err.message}</p>`;
-    }
-
-
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
+function formatPublishedDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleString('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
+}
+
+function renderNextBatch() {
+  const nextArticles = allArticles.slice(currentIndex, currentIndex + batchSize);
+  nextArticles.forEach((article) => {
+    const articleHTML = `
+      <div class="news-card">
+        <h2>${article.title}</h2>
+        <p>${formatPublishedDate(article.publishedAt)} | ${article.source.name}</p>
+        <img src="${article.image}" class="featured-image" alt="News Image" />
+        <p>${article.description}</p>
+        <button>
+          <a href="${article.url}" target="_blank" rel="noopener noreferrer">Read More →</a>
+        </button>
+      </div>
+      <hr/>
+    `;
+    articlePage.innerHTML += articleHTML;
+  });
+
+  currentIndex += batchSize;
+
+  if (currentIndex >= allArticles.length) {
+    loadMoreBtn.style.display = 'none';
+  }
+}
+
+async function getBreakingNews() {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+
+    const data = await res.json();
+    allArticles = shuffle(data.articles);
+    localStorage.setItem("cachedNews", JSON.stringify(allArticles));
+    localStorage.setItem("cachedTime", new Date().toISOString());
+
+    currentIndex = 0;
+    articlePage.innerHTML = '';
+    statusMessage.innerHTML = '';
+    renderNextBatch();
+    loadMoreBtn.style.display = 'block';
+
+  } catch (err) {
+    console.error('❌ Failed to load news:', err);
+
+    const cached = localStorage.getItem("cachedNews");
+    if (cached) {
+      allArticles = JSON.parse(cached);
+      const cachedTime = localStorage.getItem("cachedTime");
+      statusMessage.innerHTML = `🔄 Showing cached news.<br>🕒 Last updated: ${new Date(cachedTime).toLocaleString()}`;
+      currentIndex = 0;
+      articlePage.innerHTML = '';
+      renderNextBatch();
+      loadMoreBtn.style.display = 'block';
+    } else {
+      statusMessage.innerHTML = `❌ Failed to load news and no cached news available.`;
+    }
+  }
+}
+
+// Load on page
 getBreakingNews();
 
-function formatPublishedDate(isoDate) {
-    const date = new Date(isoDate);
+// Refresh every 20 minutes
+setInterval(getBreakingNews, 20 * 60 * 1000);
 
-    const formattedDate = date.toLocaleDateString('en-IN', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+// Load more on click
+loadMoreBtn.addEventListener("click", renderNextBatch);
 
-    const formattedTime = date.toLocaleTimeString('en-IN', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    });
-
-    return `${formattedDate} | ${formattedTime}`;
-}
 
 
 
