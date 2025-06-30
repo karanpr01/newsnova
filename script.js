@@ -123,5 +123,66 @@ setInterval(getQuotes, 10000);
 
 
 
+// News ApI
+
+
+const url = `https://gnews.io/api/v4/top-headlines?lang=en&country=in&max=10&apikey=${apikey}`;
+
+async function getBreakingNews() {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+        const data = await res.json();
+
+        if (!data.articles || data.articles.length === 0) {
+            console.log("No breaking news found.");
+            return;
+        }
+
+        const article = data.articles[0];
+        console.log(article);
+        
+
+        const articlePage = document.getElementById("hero");
+
+        articlePage.innerHTML = `
+          <h1>${article.title}</h1>
+          <p>${formatPublishedDate(article.publishedAt)} | ${article.source.name}</p>
+          <img src="${article.image}" class="featured-image" />
+          <p style="margin-top:1rem;">${article.description}</p>
+           <button>
+                    <a href="${article.url}" target ="_blank">Read More →</a>
+                </button>
+        `;
+
+    }
+    catch (err) {
+        console.error('❌ Failed to load news:', err);
+        document.getElementById('article').innerHTML = `<p style="color:red;">Error loading news: ${err.message}</p>`;
+    }
+
+
+}
+
+getBreakingNews();
+
+function formatPublishedDate(isoDate) {
+    const date = new Date(isoDate);
+
+    const formattedDate = date.toLocaleDateString('en-IN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    const formattedTime = date.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+
+    return `${formattedDate} | ${formattedTime}`;
+}
+
 
 

@@ -192,8 +192,8 @@ h4.active {
 }
 
 
-/* Main Section */
-  .main {
+/* Hero Section */
+  #hero {
     /* height: 100%; */
     /* width: 65%; */
     display: flex;
@@ -207,16 +207,16 @@ h4.active {
     width: 300px;
   }
 
-  .main button{
+  #hero button{
     padding: 20px;
     background-color: var(--accent-color);
   }
 
-  .main button:hover{
+  #hero button:hover{
     background-color: var(--accent-hover);
   }
 
-  .main button a{
+  #hero button a{
     text-decoration: none;
     color: var(--text-color);
   }
@@ -277,7 +277,7 @@ h4.active {
 
   /* Sidebar */
 
-  main {
+  .hero-section {
     display: flex;
     /* min-height: 100vh;
     align-items: flex-start; */
@@ -312,7 +312,7 @@ h4.active {
   }
 
   /* Main Section */
-  .main {
+  #hero {
     height: 100%;
     width: 65%;
     display: flex;
@@ -325,18 +325,20 @@ h4.active {
   .featured-image {
     /* width: 600px; */
     height: 350px;
+    object-fit: cover;
+    object-position: center;
   }
 
-  .main button{
+  #hero button{
     padding: 20px;
     background-color: var(--accent-color);
   }
 
-  .main button:hover{
+  #hero button:hover{
     background-color: var(--accent-hover);
   }
 
-  .main button a{
+  #hero button a{
     text-decoration: none;
     color: var(--text-color);
   }
