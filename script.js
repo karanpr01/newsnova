@@ -1,23 +1,23 @@
 
 
 //* Gsap 
-let tl = gsap.timeline({paused: true });
+let tl = gsap.timeline({ paused: true });
 
 
-tl.to(".nav-links",{
-    right:"0",
-    duration:0.6
+tl.to(".nav-links", {
+  right: "0",
+  duration: 0.6
 })
 
-tl.from(".nav-links h4",{
-    x:150,
-    duration:0.7,
-    stagger:0.25,
-    opacity:0
+tl.from(".nav-links h4", {
+  x: 150,
+  duration: 0.7,
+  stagger: 0.25,
+  opacity: 0
 })
 
-tl.from(".nav-links i",{
-    opacity:0
+tl.from(".nav-links i", {
+  opacity: 0
 })
 
 
@@ -25,13 +25,13 @@ tl.from(".nav-links i",{
 let navbar = document.querySelector(".menu")
 let cross = document.querySelector(".cancel")
 
-navbar.addEventListener("click",function(){
-    tl.play()
-    
+navbar.addEventListener("click", function () {
+  tl.play()
+
 })
 
-cross.addEventListener("click", function(){
-    tl.reverse()
+cross.addEventListener("click", function () {
+  tl.reverse()
 
 })
 
@@ -89,7 +89,7 @@ window.addEventListener("DOMContentLoaded", () => {
 async function getQuotes() {
   try {
     const res = await fetch('https://dummyjson.com/quotes');
-    
+
     if (!res.ok) {
       throw new Error(`HTTP Error: ${res.status}`);
     }
@@ -125,100 +125,106 @@ setInterval(getQuotes, 60000);
 
 // News ApI
 
-
+const apikey = 'f725116e3477ec4b62f5b64412a9410f';
 const url = `https://gnews.io/api/v4/top-headlines?lang=en&country=in&max=10&apikey=${apikey}`;
 
-let allArticles = [];       // Holds full list of articles
-let currentIndex = 0;       // Index to track shown articles
-const batchSize = 3;        // How many articles to show per click
+const CACHE_KEY = 'cachedNews';
+const CACHE_TIME_KEY = 'cachedTime';
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour (in ms)
 
-const articlePage = document.getElementById("hero");
-const loadMoreBtn = document.getElementById("loadMore");
-const statusMessage = document.getElementById("status-message");
+function formatPublishedDate(isoDate) {
+  const date = new Date(isoDate);
 
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-function formatPublishedDate(dateString) {
-  const date = new Date(dateString);
-  return date.toLocaleString('en-IN', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
+  const formattedDate = date.toLocaleDateString('en-IN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   });
+
+  const formattedTime = date.toLocaleTimeString('en-IN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+
+  return `${formattedDate} | ${formattedTime}`;
 }
 
-function renderNextBatch() {
-  const nextArticles = allArticles.slice(currentIndex, currentIndex + batchSize);
-  nextArticles.forEach((article) => {
-    const articleHTML = `
+async function getBreakingNews() {
+  const articlePage = document.getElementById("hero");
+  articlePage.innerHTML = "<p>⏳ Loading news...</p>";
+
+  try {
+    const now = Date.now();
+    const cachedData = localStorage.getItem(CACHE_KEY);
+    const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+
+    // ✅ Check cache is fresh (within 1 hour)
+    if (cachedData && cachedTime && now - new Date(cachedTime).getTime() < CACHE_DURATION) {
+      console.log("✅ Using cached news");
+      const articles = JSON.parse(cachedData);
+      renderArticles(articles);
+      return;
+    }
+
+    // 🔄 Fetch new data from API if no cache or cache expired
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+    const data = await res.json();
+
+    if (!data.articles || data.articles.length === 0) {
+      articlePage.innerHTML = "<p>No breaking news found.</p>";
+      return;
+    }
+
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data.articles));
+    localStorage.setItem(CACHE_TIME_KEY, new Date().toISOString());
+
+    renderArticles(data.articles);
+
+  } catch (err) {
+    console.error("❌ Failed to load news:", err);
+    articlePage.innerHTML = `<p style="color:red;">❌ Error loading news: ${err.message}</p>`;
+  }
+}
+
+function renderArticles(articles) {
+  const articlePage = document.getElementById("hero");
+  articlePage.innerHTML = ""; // Clear previous content
+
+  articles.forEach(article => {
+    const image = article.image || "https://via.placeholder.com/600x350?text=No+Image";
+
+    articlePage.innerHTML += `
       <div class="news-card">
         <h2>${article.title}</h2>
         <p>${formatPublishedDate(article.publishedAt)} | ${article.source.name}</p>
-        <img src="${article.image}" class="featured-image" alt="News Image" />
+        <img src="${image}" class="featured-image" alt="News image"/>
         <p>${article.description}</p>
         <button>
-          <a href="${article.url}" target="_blank" rel="noopener noreferrer">Read More →</a>
+          <a href="${article.url}" target="_blank">Read More →</a>
         </button>
       </div>
       <hr/>
     `;
-    articlePage.innerHTML += articleHTML;
   });
-
-  currentIndex += batchSize;
-
-  if (currentIndex >= allArticles.length) {
-    loadMoreBtn.style.display = 'none';
-  }
 }
 
-async function getBreakingNews() {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-
-    const data = await res.json();
-    allArticles = shuffle(data.articles);
-    localStorage.setItem("cachedNews", JSON.stringify(allArticles));
-    localStorage.setItem("cachedTime", new Date().toISOString());
-
-    currentIndex = 0;
-    articlePage.innerHTML = '';
-    statusMessage.innerHTML = '';
-    renderNextBatch();
-    loadMoreBtn.style.display = 'block';
-
-  } catch (err) {
-    console.error('❌ Failed to load news:', err);
-
-    const cached = localStorage.getItem("cachedNews");
-    if (cached) {
-      allArticles = JSON.parse(cached);
-      const cachedTime = localStorage.getItem("cachedTime");
-      statusMessage.innerHTML = `🔄 Showing cached news.<br>🕒 Last updated: ${new Date(cachedTime).toLocaleString()}`;
-      currentIndex = 0;
-      articlePage.innerHTML = '';
-      renderNextBatch();
-      loadMoreBtn.style.display = 'block';
-    } else {
-      statusMessage.innerHTML = `❌ Failed to load news and no cached news available.`;
-    }
-  }
-}
-
-// Load on page
+// Call once on page load
 getBreakingNews();
 
-// Refresh every 20 minutes
-setInterval(getBreakingNews, 20 * 60 * 1000);
 
-// Load more on click
-loadMoreBtn.addEventListener("click", renderNextBatch);
+
+
+
+
+
+
+
+
+
+
+
 
 
 

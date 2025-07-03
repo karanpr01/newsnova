@@ -38,7 +38,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
-  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Navbar */
@@ -119,15 +119,17 @@ nav i {
 
 /* Sidebar */
 .nav-links {
-  height: 100%;
-  width: 100%;
-  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
   background-color: var(--card-color);
   top: 0;
   right: -100%;
   backdrop-filter: blur(5px);
   padding: 80px 60px;
   transition: right 0.3s ease;
+  /* display: none; */
+  z-index: 1000;
 }
 
 /* Sidebar Top */
@@ -239,9 +241,6 @@ h4.active {
 
 /* Responsive:Desktop */
 @media screen and (min-width: 767px) {
-  body {
-    /* background-color: red; // for testing */
-  }
 
   /* NavBar */
   .nav-links {
