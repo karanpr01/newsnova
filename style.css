@@ -260,7 +260,17 @@ h4.active {
     display: none;
   }
 
-  nav .search-bar,
+  nav .search-bar{
+    display: flex;
+    gap: 5px;
+  }
+
+  #search-btn{
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--text-color);
+    background-color: var(--accent-color);
+  }
   nav .theme-toggle {
     display: block;
   }
