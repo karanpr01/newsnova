@@ -124,7 +124,7 @@ setInterval(getQuotes, 60000);
 
 
 // News ApI
-
+  const articlePage = document.getElementById("hero");
 const apikey = 'f725116e3477ec4b62f5b64412a9410f';
 const url = `https://gnews.io/api/v4/top-headlines?lang=en&country=in&max=10&apikey=${apikey}`;
 
@@ -151,7 +151,7 @@ function formatPublishedDate(isoDate) {
 }
 
 async function getBreakingNews() {
-  const articlePage = document.getElementById("hero");
+
   articlePage.innerHTML = "<p>⏳ Loading news...</p>";
 
   try {
@@ -170,7 +170,11 @@ async function getBreakingNews() {
     // 🔄 Fetch new data from API if no cache or cache expired
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+    console.log("API call sucessful");
+
     const data = await res.json();
+
+    console.log(data);
 
     if (!data.articles || data.articles.length === 0) {
       articlePage.innerHTML = "<p>No breaking news found.</p>";
@@ -199,7 +203,7 @@ function renderArticles(articles) {
       <div class="news-card">
         <h2>${article.title}</h2>
         <p>${formatPublishedDate(article.publishedAt)} | ${article.source.name}</p>
-        <img src="${image}" class="featured-image" alt="News image"/>
+        <img src="${image}" class="featured-image" alt="${article.title}" loading="lazy"/>
         <p>${article.description}</p>
         <button>
           <a href="${article.url}" target="_blank">Read More →</a>
@@ -215,20 +219,93 @@ getBreakingNews();
 
 
 
-// Search News
+// Search News by Tags
+const tags = document.querySelectorAll("h4")
 
 
+// Get News from api
+
+async function fetchAndShowNews(query) {
+
+const queryurl = `https://gnews.io/api/v4/search?q=${query}&lang=en&country=in&max=10&apikey=${apikey}`;
+ const articlePage = document.getElementById("hero");
+
+  // articlePage.innerHTML = ""
+  articlePage.innerHTML = `<p style="text-align:center;">🔄 Loading latest news on <b>${query}</b>...</p>`
+
+  try {
+   
+
+    const res = await fetch(queryurl);
+    const tagdata = await res.json()
+
+    const articles = tagdata.articles
+
+    // console.log(tagdata);
+    // console.log(articles);
+    
+    
+    if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+
+    if (!articles || articles.length === 0) {
+      articlePage.innerHTML = `<p style="color: orange;">⚠ No news found for "${query}"</p>`;
+      return;
+    }
+
+    localStorage.setItem("lastNews", JSON.stringify(articles));
+    localStorage.setItem("lastQuery", query);
+    localStorage.setItem("lastTime", new Date().toISOString());
+
+    displayNewsCards(articles);
+  } catch (err) {
+    console.error("❌ Fetch failed:", err.message);
+
+    const cached = localStorage.getItem("lastNews");
+    if (cached) {
+      articlePage.innerHTML = `<p style="color: red;">⚠ API limit reached. Showing cached "${localStorage.getItem("lastQuery")}" news</p>`;
+      displayNewsCards(JSON.parse(cached));
+    } else {
+      articlePage.innerHTML = `<p style="color: red;">❌ Failed to fetch news and no cached data available.</p>`;
+    }
+  }
+}
+
+function displayNewsCards(articles) {
+  articlePage.innerHTML = ""; 
+  articles.forEach(article => {
+    const card = document.createElement("div");
+    card.className = "news-card";
+
+    card.innerHTML = `
+      <h2>${article.title}</h2>
+      <p>${formatPublishedDate(article.publishedAt)} | ${article.source.name}</p>
+      <img src="${article.image || 'https://via.placeholder.com/600x350?text=No+Image'}" class="featured-image" loading="lazy" alt="${article.title}"/>
+      <p>${article.description || "No description available."}</p>
+      <button>
+        <a href="${article.url}" target="_blank">Read More →</a>
+      </button>
+    `;
+
+    articlePage.appendChild(card);
+  });
+}
 
 
-
-
-
-
-
-
-
-
-
+let tagTimeout;
+tags.forEach(tag => {
+  tag.addEventListener("click", () => {
+    clearTimeout(tagTimeout);
+    const query = tag.textContent;
+    tl.reverse()
+    tagTimeout = setTimeout(() => {
+      if (query.toLowerCase() === "home") {
+        getBreakingNews();
+      } else {
+        fetchAndShowNews(query);
+      }
+    }, 300); // 300ms delay to avoid rapid fetches
+  });
+});
 
 
 
