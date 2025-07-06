@@ -209,9 +209,11 @@ h4.active {
 }
 
 #hero button {
-  padding: 20px;
+  padding: 15px 20px;
   background-color: var(--accent-color);
   margin: 20px 0;
+  border: none;
+  border-radius: 20px;
 }
 
 #hero button:hover {
@@ -316,12 +318,6 @@ h4.active {
     background-color: var(--accent-color);
   }
 
-  h4.active {
-    background-color: #2ca8da;
-    font-weight: 600;
-    color: #1d4ed8;
-  }
-
   /* Main Section */
   #hero {
     height: 100%;
@@ -341,8 +337,11 @@ h4.active {
   }
 
   #hero button {
-    padding: 20px;
+    padding: 15px 20px;
     background-color: var(--accent-color);
+    border-radius: 20px;
+    border: none;
+
   }
 
   #hero button:hover {
